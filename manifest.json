@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Prompt Hash",
+  "version": "1.0.0",
+  "description": "Expand short #hashtags into full AI prompt templates anywhere on the web.",
+  "action": {
+    "default_title": "Prompt Hash",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["storage", "activeTab", "tabs"],
+  "commands": {
+    "expand-shortcode": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "mac": "Command+Shift+E"
+      },
+      "description": "Expand the last #shortcut near the cursor"
+    }
+  },
+  "background": {
+    "service_worker": "service_worker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content_script.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html"
+}
