@@ -207,8 +207,15 @@ async function insertTemplateIntoElement(element, template, allowTrailingWhitesp
 
   if (element.isContentEditable) {
     const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) {
+    if (!selection) {
       return { ok: false, error: "No selection in editable element." };
+    }
+    if (selection.rangeCount === 0 || !element.contains(selection.anchorNode)) {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
     }
     const range = selection.getRangeAt(0);
     const editableRoot = element;
@@ -266,8 +273,15 @@ async function insertTemplateAtCursor(element, template) {
 
   if (element.isContentEditable) {
     const selection = window.getSelection();
-    if (!selection || selection.rangeCount === 0) {
+    if (!selection) {
       return { ok: false, error: "No selection in editable element." };
+    }
+    if (selection.rangeCount === 0 || !element.contains(selection.anchorNode)) {
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
     }
     const range = selection.getRangeAt(0);
     range.deleteContents();
