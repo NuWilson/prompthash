@@ -115,17 +115,36 @@ async function insertShortcut(name) {
     showToast("No active tab found.");
     return;
   }
-  chrome.tabs.sendMessage(tab.id, { type: "insert-shortcut", name }, (response) => {
-    if (chrome.runtime.lastError) {
-      showToast("Unable to reach the page.");
+  const sendMessage = () =>
+    new Promise((resolve) => {
+      chrome.tabs.sendMessage(tab.id, { type: "insert-shortcut", name }, (response) => {
+        if (chrome.runtime.lastError) {
+          resolve({ ok: false, error: chrome.runtime.lastError.message });
+          return;
+        }
+        resolve(response || { ok: false, error: "No response from page." });
+      });
+    });
+
+  let response = await sendMessage();
+  if (!response.ok && response.error?.includes("Receiving end does not exist")) {
+    try {
+      await chrome.scripting.executeScript({
+        target: { tabId: tab.id },
+        files: ["content_script.js"]
+      });
+      response = await sendMessage();
+    } catch (error) {
+      showToast("Cannot access this page. Try a standard web page.");
       return;
     }
-    if (!response?.ok) {
-      showToast(response?.error || "Unable to insert shortcut.");
-      return;
-    }
-    showToast("Inserted into page.");
-  });
+  }
+
+  if (!response?.ok) {
+    showToast(response?.error || "Unable to insert shortcut.");
+    return;
+  }
+  showToast("Inserted into page.");
 }
 
 function startEdit(shortcut) {

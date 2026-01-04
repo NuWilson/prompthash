@@ -7,7 +7,7 @@
     "default_title": "Prompt Hash",
     "default_popup": "popup.html"
   },
-  "permissions": ["storage", "activeTab", "tabs"],
+  "permissions": ["storage", "activeTab", "tabs", "scripting"],
   "commands": {
     "expand-shortcode": {
       "suggested_key": {
