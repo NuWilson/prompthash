@@ -7,44 +7,46 @@
     <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <header class="header">
-      <div>
-        <h1>Prompt Hash</h1>
-        <p class="subtitle">Expand #shortcuts into full prompts.</p>
-      </div>
-      <div class="header-actions">
-        <button id="open-window-button" class="ghost">Open Window</button>
-        <button id="export-button" class="ghost">Export</button>
-      </div>
-    </header>
+    <div class="container">
+      <header class="header">
+        <div>
+          <h1>Prompt Hash</h1>
+          <p class="subtitle">Expand #shortcuts into full prompts.</p>
+        </div>
+        <div class="header-actions">
+          <button id="open-tab-button" class="ghost">Open Tab</button>
+          <button id="export-button" class="ghost">Export</button>
+        </div>
+      </header>
 
-    <section class="search">
-      <input id="search-input" type="search" placeholder="Search shortcuts" />
-      <button id="import-button" class="ghost">Import</button>
-      <input id="import-file" type="file" accept="application/json" hidden />
-    </section>
+      <section class="search">
+        <input id="search-input" type="search" placeholder="Search shortcuts" />
+        <button id="import-button" class="ghost">Import</button>
+        <input id="import-file" type="file" accept="application/json" hidden />
+      </section>
 
-    <section id="shortcut-list" class="list"></section>
+      <section id="shortcut-list" class="list"></section>
 
-    <section class="form">
-      <h2 id="form-title">New Shortcut</h2>
-      <label>
-        Name
-        <input id="name-input" type="text" placeholder="#investigate" />
-      </label>
-      <label>
-        Template
-        <textarea id="template-input" rows="4" placeholder="Prompt template"></textarea>
-      </label>
-      <label>
-        Tags (comma separated)
-        <input id="tags-input" type="text" placeholder="research,analysis" />
-      </label>
-      <div class="form-actions">
-        <button id="save-button" class="primary">Save Shortcut</button>
-        <button id="reset-button" class="ghost">Reset</button>
-      </div>
-    </section>
+      <section class="form">
+        <h2 id="form-title">New Shortcut</h2>
+        <label>
+          Name
+          <input id="name-input" type="text" placeholder="#investigate" />
+        </label>
+        <label>
+          Template
+          <textarea id="template-input" rows="4" placeholder="Prompt template"></textarea>
+        </label>
+        <label>
+          Tags (comma separated)
+          <input id="tags-input" type="text" placeholder="research,analysis" />
+        </label>
+        <div class="form-actions">
+          <button id="save-button" class="primary">Save Shortcut</button>
+          <button id="reset-button" class="ghost">Reset</button>
+        </div>
+      </section>
+    </div>
 
     <div id="toast" class="toast" hidden></div>
 
