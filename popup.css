@@ -2,13 +2,44 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: light dark;
+  --background: #ffffff;
+  --foreground: #0b0e14;
+  --border: #e5e7eb;
+  --muted: #6b7280;
+  --accent: #5b7cff;
+  --accent-strong: #4b68d9;
+  --surface: #ffffff;
+  --surface-muted: #f9fafb;
+  --dot: rgba(15, 23, 42, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0b0e14;
+    --foreground: #f8fafc;
+    --border: #1f2937;
+    --muted: #94a3b8;
+    --accent: #6d87ff;
+    --accent-strong: #5166c9;
+    --surface: #0f141c;
+    --surface-muted: #111827;
+    --dot: rgba(148, 163, 184, 0.08);
+  }
+}
+
 body {
   margin: 0;
   font-family: "Inter", system-ui, sans-serif;
-  background: #f5f7fb;
-  color: #0f172a;
-  width: 340px;
-  padding: 16px;
+  background-color: var(--background);
+  background-image: radial-gradient(var(--dot) 0.5px, transparent 0.5px);
+  background-size: 18px 18px;
+  color: var(--foreground);
+  width: 360px;
+  padding: 24px;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
 }
 
 .header {
@@ -16,7 +47,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .header h1 {
@@ -27,13 +58,13 @@ body {
 .subtitle {
   margin: 2px 0 0;
   font-size: 12px;
-  color: #64748b;
+  color: var(--muted);
 }
 
 .search {
   display: flex;
   gap: 8px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .search input {
@@ -43,17 +74,17 @@ body {
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-height: 280px;
+  gap: 12px;
+  max-height: 260px;
   overflow-y: auto;
-  padding-right: 4px;
+  padding-right: 6px;
 }
 
 .card {
-  background: #fff;
+  background: var(--surface);
   border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  padding: 14px;
+  border: 1px solid var(--border);
 }
 
 .card-header {
@@ -70,32 +101,38 @@ body {
 
 .preview {
   font-size: 12px;
-  color: #475569;
-  margin: 0 0 10px;
+  color: var(--muted);
+  margin: 0 0 12px;
 }
 
 .card-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
 }
 
 button {
-  border: none;
-  border-radius: 8px;
-  padding: 6px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 8px 12px;
   font-size: 12px;
   cursor: pointer;
+  font-weight: 500;
+  background: transparent;
+  color: inherit;
+  transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease;
 }
 
 button.primary {
-  background: #2563eb;
+  background: var(--accent);
   color: #fff;
+  border-color: var(--accent);
 }
 
 button.ghost {
-  background: #e2e8f0;
-  color: #0f172a;
+  background: transparent;
+  color: var(--foreground);
+  border-color: var(--border);
 }
 
 button.icon {
@@ -103,39 +140,56 @@ button.icon {
   font-size: 14px;
 }
 
+button.primary:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+button.ghost:hover {
+  background: var(--surface-muted);
+}
+
 .form {
-  margin-top: 14px;
-  background: #fff;
-  padding: 12px;
+  margin-top: 20px;
+  background: var(--surface);
+  padding: 16px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border: 1px solid var(--border);
 }
 
 .form h2 {
   font-size: 14px;
-  margin: 0 0 8px;
+  margin: 0 0 12px;
 }
 
 label {
   display: block;
   font-size: 12px;
-  color: #334155;
-  margin-bottom: 8px;
+  color: var(--muted);
+  margin-bottom: 12px;
 }
 
 input,
 textarea {
   width: 100%;
-  border: 1px solid #cbd5f5;
-  border-radius: 8px;
-  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
   margin-top: 4px;
   font-size: 12px;
+  background: var(--surface);
+  color: var(--foreground);
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--accent);
 }
 
 .form-actions {
   display: flex;
-  gap: 8px;
+  gap: 10px;
 }
 
 .toast {
@@ -143,10 +197,11 @@ textarea {
   bottom: 16px;
   left: 16px;
   right: 16px;
-  background: #0f172a;
-  color: #fff;
+  background: var(--foreground);
+  color: var(--background);
   padding: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 12px;
   text-align: center;
+  border: 1px solid var(--border);
 }
