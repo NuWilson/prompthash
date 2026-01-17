@@ -10,6 +10,7 @@ const resetButton = document.getElementById("reset-button");
 const toastEl = document.getElementById("toast");
 const formTitle = document.getElementById("form-title");
 const exportButton = document.getElementById("export-button");
+const openTabButton = document.getElementById("open-tab-button");
 const importButton = document.getElementById("import-button");
 const importFile = document.getElementById("import-file");
 
@@ -275,6 +276,11 @@ function bindEvents() {
   saveButton.addEventListener("click", handleSave);
   resetButton.addEventListener("click", resetForm);
   exportButton.addEventListener("click", exportShortcuts);
+  openTabButton.addEventListener("click", () => {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL("popup.html")
+    });
+  });
   importButton.addEventListener("click", () => importFile.click());
   importFile.addEventListener("change", (event) => {
     const file = event.target.files[0];
